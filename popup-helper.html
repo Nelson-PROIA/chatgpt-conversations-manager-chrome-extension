@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT Conversations Manager - Helper</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      color: #1e293b;
+      font-weight: 600;
+    }
+    
+    .status {
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #166534;
+      font-weight: 500;
+    }
+    
+    .instructions {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .instructions h3 {
+      margin: 0 0 16px 0;
+      font-size: 16px;
+      color: #1e293b;
+      font-weight: 600;
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 8px 0;
+    }
+    
+    .step:last-child {
+      margin-bottom: 0;
+    }
+    
+    .step-number {
+      background: #3b82f6;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    
+    .step-text {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .highlight {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .action-btn {
+      flex: 1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .action-btn.secondary {
+      background: #6b7280;
+    }
+    
+    .action-btn.secondary:hover {
+      background: #4b5563;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">💬</div>
+    <h1>ChatGPT Conversations Manager</h1>
+  </div>
+  
+  <div class="status">
+    ✅ You're on ChatGPT and ready to manage conversations!
+  </div>
+  
+  <div class="instructions">
+    <h3>🚀 How to Use</h3>
+    
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-text">Look for the <span class="highlight">"Manage Conversations"</span> button in the left sidebar</div>
+    </div>
+    
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-text">Click it to open the conversations manager modal</div>
+    </div>
+    
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-text">Use <span class="highlight">"Select All"</span> to choose multiple conversations</div>
+    </div>
+    
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-text">Perform bulk actions: delete, archive, or star conversations</div>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <button class="action-btn" id="openManagerBtn">🎯 Open Manager</button>
+    <button class="action-btn secondary" id="refreshPageBtn">🔄 Refresh Page</button>
+  </div>
+  
+  <div class="footer">
+    Click the extension icon anytime to open the manager directly
+  </div>
+
+  <script src="popup-helper.js"></script>
+</body>
+</html>

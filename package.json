@@ -1,0 +1,33 @@
+{
+  "name": "chatgpt-conversations-manager",
+  "version": "1.0.0",
+  "description": "A Chrome extension to easily manage ChatGPT conversations with bulk selection and actions",
+  "main": "content.js",
+  "scripts": {
+    "build": "echo 'No build step required for Chrome extension'",
+    "test": "echo 'No tests specified'",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "chatgpt",
+    "conversations",
+    "bulk-management",
+    "productivity"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/chatgpt-conversations-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/chatgpt-conversations-manager/issues"
+  },
+  "homepage": "https://github.com/yourusername/chatgpt-conversations-manager#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT Conversations Manager - Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8fafc;
+    }
+    
+    .demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .demo-header h1 {
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+    
+    .demo-header p {
+      color: #64748b;
+      font-size: 18px;
+    }
+    
+    .demo-section {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-section h2 {
+      color: #1e293b;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+    }
+    
+    .demo-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 10px;
+    }
+    
+    .demo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .demo-button.secondary {
+      background: #6b7280;
+    }
+    
+    .demo-button.secondary:hover {
+      background: #4b5563;
+    }
+    
+    .demo-button.success {
+      background: #10b981;
+    }
+    
+    .demo-button.success:hover {
+      background: #059669;
+    }
+    
+    .demo-button.danger {
+      background: #ef4444;
+    }
+    
+    .demo-button.danger:hover {
+      background: #dc2626;
+    }
+    
+    .demo-button.warning {
+      background: #f59e0b;
+    }
+    
+    .demo-button.warning:hover {
+      background: #d97706;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+  }
+  
+  .demo-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .demo-card h3 {
+    color: #1e293b;
+    margin-bottom: 12px;
+  }
+  
+  .demo-card p {
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+  
+  .demo-features {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+  
+  .demo-features li {
+    padding: 8px 0;
+    color: #475569;
+    position: relative;
+    padding-left: 24px;
+  }
+  
+  .demo-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+  }
+  
+  .demo-instructions {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .demo-instructions h4 {
+    color: #1e40af;
+    margin-top: 0;
+  }
+  
+  .demo-instructions ol {
+    color: #1e40af;
+    margin: 0;
+    padding-left: 20px;
+  }
+  
+  .demo-instructions li {
+    margin: 8px 0;
+  }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <div class="demo-header">
+      <h1>🚀 ChatGPT Conversations Manager</h1>
+      <p>Demo and Testing Interface</p>
+    </div>
+    
+    <div class="demo-section">
+      <h2>🎯 What This Extension Does</h2>
+      <p>This Chrome extension solves the frustrating one-by-one conversation management in ChatGPT by providing:</p>
+      
+      <div class="demo-grid">
+        <div class="demo-card">
+          <h3>Bulk Selection</h3>
+          <p>Select all conversations at once instead of clicking one by one</p>
+          <ul class="demo-features">
+            <li>Select All button</li>
+            <li>Select None button</li>
+            <li>Individual checkboxes</li>
+          </ul>
+        </div>
+        
+        <div class="demo-card">
+          <h3>Smart Parsing</h3>
+          <p>Automatically detects and lists all your conversations</p>
+          <ul class="demo-features">
+            <li>Extracts titles</li>
+            <li>Gets timestamps</li>
+            <li>Identifies conversation IDs</li>
+          </ul>
+        </div>
+        
+        <div class="demo-card">
+          <h3>Bulk Actions</h3>
+          <p>Perform operations on multiple conversations simultaneously</p>
+          <ul class="demo-features">
+            <li>Delete multiple</li>
+            <li>Archive multiple</li>
+            <li>Add to projects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>🧪 Test the Interface</h2>
+      <p>Click the buttons below to see the extension's UI components in action:</p>
+      
+      <button class="demo-button" onclick="openDemoModal()">Open Conversations Modal</button>
+      <button class="demo-button secondary" onclick="showNotification('info')">Show Info Notification</button>
+      <button class="demo-button success" onclick="showNotification('success')">Show Success Notification</button>
+      <button class="demo-button warning" onclick="showNotification('warning')">Show Warning Notification</button>
+      <button class="demo-button danger" onclick="showNotification('error')">Show Error Notification</button>
+    </div>
+    
+    <div class="demo-section">
+      <h2>📱 Installation Instructions</h2>
+      
+      <div class="demo-instructions">
+        <h4>Quick Setup:</h4>
+        <ol>
+          <li>Download all extension files</li>
+          <li>Open Chrome and go to <code>chrome://extensions/</code></li>
+          <li>Enable "Developer mode"</li>
+          <li>Click "Load unpacked" and select the extension folder</li>
+          <li>Go to ChatGPT and look for the "Manage Conversations" button</li>
+        </ol>
+      </div>
+      
+      <p><strong>Note:</strong> This demo shows the UI components, but the actual conversation parsing and management only works when the extension is installed and running on ChatGPT pages.</p>
+    </div>
+    
+    <div class="demo-section">
+      <h2>🔧 Technical Details</h2>
+      <ul class="demo-features">
+        <li>Built with vanilla JavaScript (no frameworks)</li>
+        <li>Uses Chrome Extension Manifest V3</li>
+        <li>Responsive design with modern CSS</li>
+        <li>Accessibility features included</li>
+        <li>MutationObserver for dynamic content detection</li>
+        <li>Minimal permissions required</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Demo functionality
+    function openDemoModal() {
+      // Create a demo modal with sample conversations
+      const modal = document.createElement('div');
+      modal.className = 'conversations-manager-modal';
+      modal.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2>Demo: Manage Conversations</h2>
+              <button class="close-btn" onclick="this.closest('.conversations-manager-modal').remove()" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="selection-controls">
+                <button class="select-all-btn" onclick="selectAllDemo()">Select All</button>
+                <button class="select-none-btn" onclick="selectNoneDemo()">Select None</button>
+                <span class="selection-count">0 selected</span>
+              </div>
+              
+              <div class="conversations-list">
+                <div class="conversation-item" data-id="demo-1">
+                  <label class="conversation-checkbox">
+                    <input type="checkbox" value="demo-1" onchange="updateDemoSelection()">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="conversation-info">
+                    <div class="conversation-title">How to build a Chrome extension</div>
+                    <div class="conversation-meta">
+                      <span class="conversation-id">demo-1</span>
+                      <span class="conversation-time">2 hours ago</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="conversation-item" data-id="demo-2">
+                  <label class="conversation-checkbox">
+                    <input type="checkbox" value="demo-2" onchange="updateDemoSelection()">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="conversation-info">
+                    <div class="conversation-title">JavaScript best practices for 2024</div>
+                    <div class="conversation-meta">
+                      <span class="conversation-id">demo-2</span>
+                      <span class="conversation-time">1 day ago</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="conversation-item" data-id="demo-3">
+                  <label class="conversation-checkbox">
+                    <input type="checkbox" value="demo-3" onchange="updateDemoSelection()">
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="conversation-info">
+                    <div class="conversation-title">CSS Grid vs Flexbox comparison</div>
+                    <div class="conversation-meta">
+                      <span class="conversation-id">demo-3</span>
+                      <span class="conversation-time">3 days ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-footer">
+              <div class="bulk-actions">
+                <button class="action-btn delete-btn" data-action="delete" disabled>Delete Selected</button>
+                <button class="action-btn archive-btn" data-action="archive" disabled>Archive Selected</button>
+                <button class="action-btn project-btn" data-action="project" disabled>Add to Projects</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function selectAllDemo() {
+      const checkboxes = document.querySelectorAll('.conversation-item input[type="checkbox"]');
+      checkboxes.forEach(checkbox => checkbox.checked = true);
+      updateDemoSelection();
+    }
+    
+    function selectNoneDemo() {
+      const checkboxes = document.querySelectorAll('.conversation-item input[type="checkbox"]');
+      checkboxes.forEach(checkbox => checkbox.checked = false);
+      updateDemoSelection();
+    }
+    
+    function updateDemoSelection() {
+      const checkboxes = document.querySelectorAll('.conversation-item input[type="checkbox"]:checked');
+      const count = checkboxes.length;
+      const countElement = document.querySelector('.selection-count');
+      if (countElement) {
+        countElement.textContent = `${count} selected`;
+      }
+      
+      const actionBtns = document.querySelectorAll('.action-btn');
+      actionBtns.forEach(btn => {
+        btn.disabled = count === 0;
+      });
+    }
+    
+    function showNotification(type) {
+      const message = {
+        'info': 'This is an informational message',
+        'success': 'Operation completed successfully!',
+        'warning': 'Please be careful with this action',
+        'error': 'Something went wrong. Please try again.'
+      }[type];
+      
+      const notification = document.createElement('div');
+      notification.className = `conversations-manager-notification ${type}`;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+    
+    // Close modal on overlay click
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay')) {
+        e.target.closest('.conversations-manager-modal').remove();
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.querySelector('.conversations-manager-modal');
+        if (modal) {
+          modal.remove();
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
