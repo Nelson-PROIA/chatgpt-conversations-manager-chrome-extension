@@ -1,915 +1,113 @@
-/* ==========================================================================
-   CSS Variables - Theme-Based Color System
-   ========================================================================== */
-:root {
-  /* Light Theme Colors (default) */
+/* Main Popup Styles */
+:root,
+.theme-light {
+  /* Light Theme */
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-tertiary: #f3f4f6;
-  --bg-hover: #f8fafc;
-  
-  --border-primary: #e5e7eb;
-  --border-secondary: #d1d5db;
-  --border-accent: #667eea;
-  
-  --text-primary: #374151;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-  --text-accent: #667eea;
-  
-  --button-primary: #667eea;
-  --button-primary-hover: #5a67d8;
-  --button-secondary: #6b7280;
-  --button-secondary-hover: #4b5563;
-  --button-danger: #dc2626;
-  --button-danger-hover: #b91c1c;
-  
-  --success-bg: #dcfce7;
-  --success-border: #bbf7d0;
-  --success-text: #166534;
-  
-  --info-bg: #dbeafe;
-  --info-border: #bfdbfe;
-  --info-text: #1e40af;
-  
-  --warning-bg: #fef3c7;
-  --warning-text: #92400e;
-  
-  --danger-text: #dc2626;
-  --danger-soft: #fecaca;
-  --archive-text: #ea580c;
-  --toggle-bg: #d1d5db;
+  --bg-secondary: #f8f9fa;
+  --bg-hover: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-tertiary: #adb5bd;
+  --border-primary: #dee2e6;
+  --accent-primary: #007bff;
+  --accent-hover: #0056b3;
+  --success-bg: #d4edda;
+  --success-border: #c3e6cb;
+  --success-text: #155724;
+  --warning-bg: #fff3cd;
+  --warning-border: #ffeaa7;
+  --warning-text: #856404;
+  --skeleton-bg: #e9ecef;
+  --skeleton-shine: #f8f9fa;
+  --danger-text: #dc3545;
+  --danger-soft: #f8d7da;
+  --archive-text: #6f42c1;
+  --text-accent: #007bff;
+  --border-secondary: #ced4da;
+  --border-accent: #007bff;
+  --button-primary: #007bff;
+  --toggle-bg: #ced4da;
   --toggle-slider: #ffffff;
-  
-  /* Skeleton loading colors */
-  --skeleton-bg: #e5e7eb;
-  --skeleton-shine: #f3f4f6;
+  --warning-bg: #fff3cd;
+  --warning-border: #ffeaa7;
 }
 
-/* ==========================================================================
-   Dark Theme - Only Override Different Colors
-   ========================================================================== */
 .theme-dark {
-  /* Backgrounds - different from light */
-  --bg-primary: #111827;
-  --bg-secondary: #1f2937;
-  --bg-tertiary: #374151;
-  --bg-hover: #4b5563;
-  
-  /* Borders - different from light */
-  --border-primary: #374151;
-  --border-secondary: #4b5563;
-  /* --border-accent stays #667eea (same as light) */
-  
-  /* Text - different from light */
-  --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  /* --text-muted stays #9ca3af (same as light) */
-  /* --text-accent stays #667eea (same as light) */
-  
-  /* Buttons - same as light, no override needed */
-  /* --button-primary stays #667eea */
-  /* --button-primary-hover stays #5a67d8 */
-  /* --button-secondary stays #6b7280 */
-  /* --button-secondary-hover stays #4b5563 */
-  /* --button-danger stays #dc2626 */
-  /* --button-danger-hover stays #b91c1c */
-  
-  /* Status colors - different from light */
-  --success-bg: #064e3b;
-  --success-border: #065f46;
-  --success-text: #d1fae5;
-  
-  --info-bg: #1e3a8a;
-  --info-border: #1e40af;
-  --info-text: #dbeafe;
-  
-  --warning-bg: #78350f;
-  --warning-text: #fef3c7;
-  
-  --danger-text: #f87171;
-  --danger-soft: #7f1d1d;
-  --archive-text: #fb923c;
+  /* Dark Theme */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-hover: #404040;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #808080;
+  --border-primary: #404040;
+  --accent-primary: #4dabf7;
+  --accent-hover: #339af0;
+  --success-bg: #2b4a2b;
+  --success-border: #3a5a3a;
+  --success-text: #a8e6cf;
+  --warning-bg: #4a3a1a;
+  --warning-border: #5a4a2a;
+  --warning-text: #ffd93d;
+  --skeleton-bg: #404040;
+  --skeleton-shine: #505050;
+  --danger-text: #ff6b6b;
+  --danger-soft: #4a2a2a;
+  --archive-text: #a78bfa;
+  --text-accent: #4dabf7;
+  --border-secondary: #555555;
+  --border-accent: #4dabf7;
+  --button-primary: #4dabf7;
   --toggle-bg: #6b7280;
   --toggle-slider: #f9fafb;
-  
-  /* Skeleton loading colors - different from light */
-  --skeleton-bg: #374151;
-  --skeleton-shine: #4b5563;
+  --warning-bg: #78350f;
+  --warning-border: #92400e;
 }
 
-/* ==========================================================================
-   Theme Base Styles
-   ========================================================================== */
-.theme-light,
-.theme-dark {
-  /* Base colors applied to body */
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-/* ==========================================================================
-   Base Styles (Layout, Spacing, Typography - No Colors)
-   ========================================================================== */
-body {
-  display: flex;
-  flex-direction: column;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Consolas', 'Monaco', 'Cascadia Code', monospace;
-  padding: 0;
+/* Base Styles */
+* {
   margin: 0;
-  border: 0;
-  line-height: 1.5;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  border: 0;
+html,
+body {
   width: fit-content;
-  min-width: 400px;
+  height: fit-content;
 }
 
-/* ==========================================================================
-   Header Component
-   ========================================================================== */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-primary);
-  flex-shrink: 0;
-  gap: 3rem;
-  background: var(--bg-secondary);
-}
-
-.brand-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-}
-
-.logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
-  flex-shrink: 0;
-  background: var(--button-primary);
-  color: white;
-}
-
-h1 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  white-space: nowrap;
-  flex: 1;
+body {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Cascadia Code', 'Source Code Pro', monospace;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--text-primary);
 }
 
-.header-actions {
+/* Popup Container */
+.popup-container {
   display: flex;
-  align-items: center;
-}
-
-/* ==========================================================================
-   Icon Button Component (used for back, settings, theme, batch buttons)
-   ========================================================================== */
-.icon-btn {
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--border-secondary);
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
+  flex-direction: column;
   background: var(--bg-primary);
-  color: var(--text-secondary);
+  border: 1px solid var(--border-primary);
+  overflow: hidden;
 }
 
-.icon-btn:hover {
-  border-color: var(--border-accent);
-  background: var(--bg-hover);
-  color: var(--text-accent);
-}
-
-.icon-btn.active {
-  border-color: var(--border-accent);
-  background: var(--button-primary);
-  color: white;
-}
-
-.icon-btn:disabled,
-.icon-btn.disabled {
-  opacity: 0.5;
-  cursor: default;
-  pointer-events: auto;
-}
-
-/* Disable hover effects for disabled icon buttons */
-.icon-btn:disabled:hover,
-.icon-btn.disabled:hover {
-  border-color: var(--border-secondary);
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-}
-
-.icon-btn svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* Batch size buttons need specific font styling */
-.icon-btn[data-value] {
-  font-size: 10px;
-  font-weight: 500;
-}
-
-/* ==========================================================================
-   Main Content
-   ========================================================================== */
+/* Main Content */
 .main-content {
   flex: 1;
-  padding: 16px;
-  display: flex;
-  gap: 12px;
-  flex-direction: column;
-}
-
-.description {
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-  flex-shrink: 0;
-  color: var(--text-secondary);
-}
-
-/* ==========================================================================
-   Status Banner Component
-   ========================================================================== */
-.status-banner {
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.status-banner.success {
-  background: var(--success-bg);
-  border: 1px solid var(--success-border);
-  color: var(--success-text);
-}
-
-.status-banner.info {
-  background: var(--info-bg);
-  border: 1px solid var(--info-border);
-  color: var(--info-text);
-}
-
-.status-icon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-}
-
-.status-text {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0;
-}
-
-.status-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.user-email {
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-.user-plan {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.8;
-  text-transform: capitalize;
-}
-
-/* ==========================================================================
-   Loading Skeleton Component
-   ========================================================================== */
-
-.skeleton-icon {
-  color: transparent !important;
-  border-radius: 50% !important;
-  position: relative;
-  overflow: hidden;
-  width: 1.2em !important;
-  height: 1.2em !important;
-  min-width: 1.2em !important;
-  min-height: 1.2em !important;
-}
-
-/* Make status icon in skeleton bigger */
-.status-banner .skeleton-icon {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-}
-
-/* Give skeleton status bar the same background as how-to section */
-.status-banner:not(.success) {
-  background: var(--bg-secondary) !important;
-  border: 1px solid var(--border-primary) !important;
-  border-radius: 8px !important;
-}
-
-/* Skeleton mode - applies skeleton styling to existing components */
-.skeleton-mode {
-  background: var(--bg-secondary) !important;
-  border-color: var(--border-primary) !important;
-}
-
-.skeleton-mode .status-icon {
-  opacity: 0.3;
-}
-
-.skeleton-text {
-  color: transparent !important;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.skeleton-line {
-  color: transparent !important;
-  border-radius: 3px;
-  position: relative;
-  overflow: hidden;
-}
-
-.skeleton-bullet {
-  color: transparent !important;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Skeleton animation */
-@keyframes skeleton-loading {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-
-.skeleton-text,
-.skeleton-line,
-.skeleton-bullet,
-.skeleton-button,
-.skeleton-icon {
-  background: var(--skeleton-bg) !important;
-  position: relative !important;
-  overflow: hidden !important;
-}
-
-.skeleton-text::before,
-.skeleton-line::before,
-.skeleton-bullet::before,
-.skeleton-button::before,
-.skeleton-icon::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent 25%, var(--skeleton-shine) 50%, transparent 75%);
-  animation: skeleton-loading 1.8s infinite;
-}
-
-/* Make button text invisible when it has skeleton class */
-.skeleton-button {
-  color: transparent !important;
-  border: none !important;
-}
-
-/* ==========================================================================
-   How-to Section Component
-   ========================================================================== */
-.how-to-section {
-  border-radius: 8px;
-  padding: 16px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
-}
-
-.how-to-section h3 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-primary);
-}
-
-.how-to-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.how-to-item {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  line-height: 1.3;
-  justify-content: flex-start;
-  padding: 8px 0;
-  color: var(--text-secondary);
-}
-
-.how-to-item:last-child {
-  margin-bottom: 0;
-}
-
-.step-number {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  flex-shrink: 0;
-  margin-right: 8px;
-  background: var(--button-primary);
-  color: white;
-}
-
-.how-to-item a {
-  text-decoration: none;
-  color: var(--text-accent);
-}
-
-.how-to-item a:hover {
-  text-decoration: underline;
-}
-
-.highlight {
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: 500;
-  background: var(--warning-bg);
-  color: var(--warning-text);
-}
-
-/* ==========================================================================
-   Action Buttons Component
-   ========================================================================== */
-.action-buttons {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.action-btn {
-  flex: 1;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  letter-spacing: -0.01em;
-  background: var(--button-primary);
-  color: white;
-}
-
-.action-btn:hover {
-  background: var(--button-primary-hover);
-}
-
-.action-btn.secondary {
-  background: var(--button-secondary);
-}
-
-.action-btn.secondary:hover {
-  background: var(--button-secondary-hover);
-}
-
-.action-btn:disabled,
-.action-btn.disabled {
-  opacity: 0.5;
-  cursor: default;
-  pointer-events: auto;
-}
-
-/* Disable hover effects for disabled buttons */
-.action-btn:disabled:hover,
-.action-btn.disabled:hover {
-  background: var(--button-primary);
-}
-
-.action-btn.secondary:disabled:hover,
-.action-btn.secondary.disabled:hover {
-  background: var(--button-secondary);
-}
-
-/* Icon styling within action buttons */
-.action-btn svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-
-/* ==========================================================================
-   Footer Component
-   ========================================================================== */
-.footer {
-  text-align: center;
-  font-size: 10px;
-  line-height: 1.3;
-  padding: 16px 20px;
-  border-top: 1px solid var(--border-primary);
-  flex-shrink: 0;
-  background: var(--bg-secondary);
-  color: var(--text-muted);
-}
-
-.footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.footer-content a {
-  text-decoration: none;
-  color: var(--text-accent);
-}
-
-.footer-content a:hover {
-  text-decoration: underline;
-}
-
-/* ==========================================================================
-   Settings Page Components
-   ========================================================================== */
-.settings-section {
-  border-radius: 8px;
+  min-height: 0;
   padding: 12px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-primary);
 }
 
-.settings-section h3 {
-  margin: 0 0 8px 0;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-
-.setting-description {
-  margin: 8px 0 0 0;
-  font-size: 11px;
-  line-height: 1.3;
-  color: var(--text-secondary);
-}
-
-.setting-description.warning {
-  color: var(--danger-text);
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.setting-label {
-  font-size: 11px;
-  font-weight: 500;
-  margin: 0;
-  color: var(--text-primary);
-}
-
-.setting-title {
-  font-size: 12px;
-  font-weight: 500;
-  margin: 0;
-  color: var(--text-primary);
-}
-
-/* Setting Row Layout */
-.setting-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-/* ==========================================================================
-   Options Selector Component (used for theme and batch selection)
-   ========================================================================== */
-.options-selector {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ==========================================================================
-   Custom Batch Input Component
-   ========================================================================== */
-.custom-batch-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 0 6px 0 0;
-  width: fit-content;
-}
-
-.custom-batch-input {
-  width: 24px;
-  height: 16px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-align: center;
-  font-size: 10px;
-  font-family: inherit;
-  color: inherit;
-  outline: none;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.custom-batch-input:focus {
-  outline: none;
-}
-
-.custom-label {
-  font-size: 9px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-/* Disable number input spinners */
-.custom-batch-input::-webkit-outer-spin-button,
-.custom-batch-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.custom-batch-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-/* ==========================================================================
-   Action Prevention Component
-   ========================================================================== */
-.action-prevention-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.action-prevention-item {
-  padding: 8px;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-primary);
-}
-
-.toggle-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.checkbox-input {
-  display: none;
-}
-
-.toggle-slider {
-  width: 36px;
-  height: 20px;
-  border-radius: 10px;
-  position: relative;
-  background: var(--toggle-bg);
-}
-
-.toggle-slider:before {
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background: var(--toggle-slider);
-  border-radius: 50%;
-  top: 3px;
-  left: 3px;
-  transition: transform 0.2s ease;
-}
-
-.checkbox-input:checked + .toggle-slider {
-  background: var(--button-primary);
-}
-
-.checkbox-input:checked + .toggle-slider:before {
-  transform: translateX(16px);
-}
-
-.toggle-text {
-  font-weight: 500;
-  font-size: 11px;
-}
-
-.toggle-text.delete {
-  color: var(--danger-text);
-  font-weight: 600;
-}
-
-.toggle-text.archive {
-  color: var(--archive-text);
-  font-weight: 600;
-}
-
-.action-description {
-  margin: 0;
-  font-size: 11px;
-  line-height: 1.3;
-  color: var(--text-secondary);
-}
-
-/* ==========================================================================
-   Settings Actions Component
-   ========================================================================== */
-.settings-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.settings-actions .action-btn {
-  flex: 1;
-}
-
-
-
-/* ==========================================================================
-   Confirmation Modal Component
-   ========================================================================== */
-.confirm-modal {
+/* Toast Container */
+#toast-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10001;
-}
-
-.confirm-modal-content {
-  padding: 16px;
-  border-radius: 6px;
-  max-width: 280px;
-  text-align: center;
-  background: var(--bg-primary);
-}
-
-.confirm-modal-content h3 {
-  margin: 0 0 8px 0;
-  font-size: 14px;
-  font-family: inherit;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-
-.confirm-modal-content p {
-  margin: 0 0 16px 0;
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--text-secondary);
-}
-
-.confirm-modal-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
-.confirm-modal-actions .action-btn {
-  min-width: 60px;
-  padding: 6px 10px;
-  font-size: 11px;
-  background: var(--bg-primary);
-  color: var(--text-accent);
-  border: 1px solid var(--text-accent);
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.confirm-modal-actions .action-btn:hover {
-  background: var(--bg-hover);
-  color: var(--text-accent);
-}
-
-.confirm-modal-actions .action-btn.secondary {
-  background: var(--bg-primary);
-  color: var(--danger-text);
-  border-color: var(--danger-text);
-}
-
-.confirm-modal-actions .action-btn.secondary:hover {
-  background: var(--danger-soft);
-  color: var(--danger-text);
-}
-
-/* ==========================================================================
-   Toast Notification Component
-   ========================================================================== */
-.toast {
-  position: fixed;
-  bottom: 8px;
-  right: 8px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  top: 20px;
+  right: 20px;
   z-index: 10000;
-  animation: toastSlideIn 0.3s ease-out;
-  background: var(--success-bg);
-  color: var(--success-text);
+  pointer-events: none;
 }
-
-.toast-message {
-  display: block;
-}
-
-@keyframes toastSlideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes toastSlideOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
 

@@ -10,6 +10,121 @@
 const EXTENSION_NAME = 'ChatGPT Conversations Manager';
 const CHATGPT_DOMAIN = 'chatgpt.com';
 
+// Storage keys (matching popup constants)
+const STORAGE_KEYS = {
+  SETTINGS: 'settings',
+  PENDING_CHANGES: 'pendingChanges',
+  GPT_THEME: 'gptTheme'
+};
+
+// Default settings (matching popup constants)
+const DEFAULT_SETTINGS = {
+  theme: 'light',
+  batchSize: 50,
+  isCustomBatchSize: false,
+  preventDelete: true,
+  preventArchive: true
+};
+
+// Batch size configuration (matching popup constants)
+const BATCH_SIZE_CONFIG = {
+  MIN: 1,
+  MAX: 250
+};
+
+// ============================================================================
+// Simple Storage Helper for Background Script
+// ============================================================================
+
+class BackgroundStorageHelper {
+  static async getSettings() {
+    try {
+      const result = await chrome.storage.sync.get(STORAGE_KEYS.SETTINGS);
+      if (result[STORAGE_KEYS.SETTINGS] && result[STORAGE_KEYS.SETTINGS].values) {
+        return result[STORAGE_KEYS.SETTINGS].values;
+      }
+      return DEFAULT_SETTINGS;
+    } catch (error) {
+      console.error('Failed to get settings:', error);
+      return DEFAULT_SETTINGS;
+    }
+  }
+
+  static async saveSettings(settings) {
+    try {
+      // Get current storage structure
+      const result = await chrome.storage.sync.get(STORAGE_KEYS.SETTINGS);
+      const currentStorage = result[STORAGE_KEYS.SETTINGS] || { values: DEFAULT_SETTINGS, changes: {} };
+      
+      // Update values and clear changes
+      await chrome.storage.sync.set({ 
+        [STORAGE_KEYS.SETTINGS]: {
+          values: settings,
+          changes: {}
+        }
+      });
+      
+      console.log('Settings saved by background script:', settings);
+      return true;
+    } catch (error) {
+      console.error('Failed to save settings:', error);
+      return false;
+    }
+  }
+
+  static async initializeStorage() {
+    try {
+      // Check if we need to migrate from old flat storage
+      const allStorage = await chrome.storage.sync.get();
+      console.log('Background script - Current storage state:', allStorage);
+      
+      if (allStorage.theme || allStorage.batchSize || allStorage.preventDelete || allStorage.preventArchive) {
+        console.log('Background script - Migrating from old flat storage structure...');
+        
+        // Extract old settings
+        const oldSettings = {
+          theme: allStorage.theme || DEFAULT_SETTINGS.theme,
+          batchSize: allStorage.batchSize || DEFAULT_SETTINGS.batchSize,
+          preventDelete: allStorage.preventDelete !== undefined ? allStorage.preventDelete : DEFAULT_SETTINGS.preventDelete,
+          preventArchive: allStorage.preventArchive !== undefined ? allStorage.preventArchive : DEFAULT_SETTINGS.preventArchive
+        };
+        
+        // Save to new structured storage
+        await chrome.storage.sync.set({
+          [STORAGE_KEYS.SETTINGS]: oldSettings,
+          [STORAGE_KEYS.PENDING_CHANGES]: {},
+          [STORAGE_KEYS.GPT_THEME]: allStorage.gptTheme || null
+        });
+        
+        // Clear old flat storage
+        await chrome.storage.sync.remove(['theme', 'batchSize', 'preventDelete', 'preventArchive', 'isCustomBatchSize']);
+        
+        console.log('Background script - Migration completed:', oldSettings);
+      } else {
+        // Ensure new structured storage exists
+        const { settings } = await chrome.storage.sync.get(STORAGE_KEYS.SETTINGS);
+        if (!settings) {
+          await chrome.storage.sync.set({ [STORAGE_KEYS.SETTINGS]: DEFAULT_SETTINGS });
+        }
+        
+        const { pendingChanges } = await chrome.storage.sync.get(STORAGE_KEYS.PENDING_CHANGES);
+        if (!pendingChanges) {
+          await chrome.storage.sync.set({ [STORAGE_KEYS.PENDING_CHANGES]: {} });
+        }
+        
+        const { gptTheme } = await chrome.storage.sync.get(STORAGE_KEYS.GPT_THEME);
+        if (!gptTheme) {
+          await chrome.storage.sync.set({ [STORAGE_KEYS.GPT_THEME]: null });
+        }
+      }
+      
+      console.log('Background script - Storage initialized successfully');
+    } catch (error) {
+      console.error('Background script - Error initializing storage:', error);
+    }
+  }
+}
+
 // ============================================================================
 // Extension Lifecycle Management
 // ============================================================================
@@ -224,7 +339,7 @@ class MessageHandler {
 
   static async handleGetSettings(sendResponse) {
     try {
-      const settings = await chrome.storage.sync.get();
+      const settings = await BackgroundStorageHelper.getSettings();
       sendResponse({
         success: true,
         settings
@@ -236,7 +351,8 @@ class MessageHandler {
 
   static async handleSaveSettings(request, sendResponse) {
     try {
-      await chrome.storage.sync.set(request.settings);
+      // Use simple storage approach for background script
+      await chrome.storage.sync.set({ [STORAGE_KEYS.SETTINGS]: request.settings });
       sendResponse({
         success: true
       });
@@ -246,58 +362,7 @@ class MessageHandler {
   }
 }
 
-// ============================================================================
-// Storage Management
-// ============================================================================
 
-class StorageManager {
-  static async getDefaultSettings() {
-    return {
-      theme: 'light',
-      batchSize: 50,
-      isCustomBatchSize: false,
-      preventDelete: true,
-      preventArchive: true
-    };
-  }
-
-  static async initializeStorage() {
-    try {
-      const settings = await chrome.storage.sync.get();
-      const defaultSettings = await this.getDefaultSettings();
-      
-      // Set default values for missing settings
-      const updatedSettings = { ...defaultSettings, ...settings };
-      await chrome.storage.sync.set(updatedSettings);
-      
-      console.log('Storage initialized with settings:', updatedSettings);
-    } catch (error) {
-      console.error('Failed to initialize storage:', error);
-    }
-  }
-
-  static async getSettings() {
-    try {
-      const defaultSettings = await this.getDefaultSettings();
-      const settings = await chrome.storage.sync.get(defaultSettings);
-      return { ...defaultSettings, ...settings };
-    } catch (error) {
-      console.error('Failed to get settings:', error);
-      return await this.getDefaultSettings();
-    }
-  }
-
-  static async saveSettings(settings) {
-    try {
-      await chrome.storage.sync.set(settings);
-      console.log('Settings saved:', settings);
-      return true;
-    } catch (error) {
-      console.error('Failed to save settings:', error);
-      return false;
-    }
-  }
-}
 
 // ============================================================================
 // Error Handling
@@ -339,17 +404,139 @@ class ErrorHandler {
 }
 
 // ============================================================================
+// URL Change Detection and Popup Refresh
+// ============================================================================
+
+class PopupRefreshManager {
+  static initialize() {
+    // Listen for tab updates (URL changes, page loads, etc.)
+    chrome.tabs.onUpdated.addListener(this.handleTabUpdate.bind(this));
+    
+    // Listen for tab activation (when user switches tabs)
+    chrome.tabs.onActivated.addListener(this.handleTabActivated.bind(this));
+    
+    console.log('Popup refresh manager initialized');
+  }
+
+  static async handleTabUpdate(tabId, changeInfo, tab) {
+    // Only process if the tab is complete and has a URL
+    if (changeInfo.status === 'complete' && tab.url) {
+      await this.checkAndRefreshPopup(tab);
+    }
+  }
+
+  static async handleTabActivated(activeInfo) {
+    try {
+      const tab = await chrome.tabs.get(activeInfo.tabId);
+      if (tab.url) {
+        await this.checkAndRefreshPopup(tab);
+      }
+    } catch (error) {
+      console.error('Error handling tab activation:', error);
+    }
+  }
+
+  static async checkAndRefreshPopup(tab) {
+    try {
+      // Check if this is a ChatGPT URL
+      const isChatGPTUrl = this.isChatGPTUrl(tab.url);
+      
+      if (isChatGPTUrl) {
+        // Get current settings to check if theme is set to ChatGPT
+        const settings = await BackgroundStorageHelper.getSettings();
+        
+        if (settings.theme === 'chatgpt') {
+          // Detect the theme from the ChatGPT page
+          const detectedTheme = await this.detectChatGPTTheme(tab.id);
+          
+          if (detectedTheme) {
+            // Update the gptTheme in storage
+            await chrome.storage.sync.set({ [STORAGE_KEYS.GPT_THEME]: detectedTheme });
+            
+            // Notify popup to refresh if it's open
+            await this.notifyPopupRefresh();
+            
+            console.log('ChatGPT theme detected and updated:', detectedTheme);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error checking popup refresh:', error);
+    }
+  }
+
+  static isChatGPTUrl(url) {
+    try {
+      const urlObj = new URL(url);
+      return urlObj.hostname === 'chatgpt.com' || 
+             urlObj.hostname === 'chat.openai.com' ||
+             urlObj.hostname === 'chatgpt.azure.com';
+    } catch (error) {
+      return false;
+    }
+  }
+
+  static async detectChatGPTTheme(tabId) {
+    try {
+      // Inject content script to detect theme
+      const results = await chrome.scripting.executeScript({
+        target: { tabId },
+        func: () => {
+          // Check for dark mode indicators
+          const isDark = document.documentElement.classList.contains('dark') ||
+                        document.body.classList.contains('dark') ||
+                        document.documentElement.getAttribute('data-theme') === 'dark' ||
+                        document.body.getAttribute('data-theme') === 'dark';
+          
+          return isDark ? 'dark' : 'light';
+        }
+      });
+      
+      if (results && results[0] && results[0].result) {
+        return results[0].result;
+      }
+      
+      return null;
+    } catch (error) {
+      console.error('Error detecting ChatGPT theme:', error);
+      return null;
+    }
+  }
+
+  static async notifyPopupRefresh() {
+    try {
+      // Use runtime.sendMessage to notify popup instead of deprecated getViews
+      // The popup will receive this message through the runtime message listener
+      chrome.runtime.sendMessage({ 
+        action: 'refreshTheme',
+        source: 'background'
+      }).catch(() => {
+        // Popup might not be open, which is fine
+        console.log('Popup not open, theme refresh message sent');
+      });
+      
+      console.log('Theme refresh message sent to popup');
+    } catch (error) {
+      console.error('Error notifying popup refresh:', error);
+    }
+  }
+}
+
+// ============================================================================
 // Initialization
 // ============================================================================
 
 class BackgroundScript {
   static async initialize() {
     try {
-      // Initialize storage
-      await StorageManager.initializeStorage();
+      // Initialize storage using the background storage helper
+      await BackgroundStorageHelper.initializeStorage();
       
       // Initialize extension lifecycle
       ExtensionLifecycle.initialize();
+      
+      // Initialize popup refresh manager
+      PopupRefreshManager.initialize();
       
       // Setup message listener
       chrome.runtime.onMessage.addListener(MessageHandler.handleMessage);

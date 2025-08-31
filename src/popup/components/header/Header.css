@@ -1,0 +1,61 @@
+/* Header Component Styles */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 85px;
+  padding: 14px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  position: relative;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Both buttons are exactly the same */
+.back-btn,
+.settings-btn {
+  flex-shrink: 0;
+}
+
+/* Icon sizing for both buttons */
+.back-btn svg,
+.settings-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--button-primary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.logo svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+

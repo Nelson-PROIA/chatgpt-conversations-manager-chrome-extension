@@ -1,0 +1,96 @@
+/* Skeleton Loading Styles */
+
+/* General Skeleton Rule */
+.skeleton-text,
+.skeleton-line,
+.skeleton-bullet,
+.skeleton-button {
+  position: relative !important;
+  overflow: hidden !important;
+  background: var(--skeleton-bg) !important;
+  color: transparent !important;
+  border: none !important;
+}
+
+/* Skeleton Shine Effect */
+.skeleton-text::before,
+.skeleton-line::before,
+.skeleton-bullet::before,
+.skeleton-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 25%, var(--skeleton-shine) 50%, transparent 75%);
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Skeleton Icon */
+.skeleton-icon {
+  width: 1.2em !important;
+  height: 1.2em !important;
+  min-width: 1.2em !important;
+  min-height: 1.2em !important;
+  border-radius: 50% !important;
+  background: var(--skeleton-bg) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.skeleton-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 25%, var(--skeleton-shine) 50%, transparent 75%);
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Status Banner Skeleton Icon */
+.status-banner .skeleton-icon {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+
+/* Skeleton Button */
+.skeleton-button {
+  color: transparent !important;
+  border: none !important;
+  background: var(--skeleton-bg) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.skeleton-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 25%, var(--skeleton-shine) 50%, transparent 75%);
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Skeleton Status Banner */
+.status-banner:not(.success) {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 8px !important;
+}
+
+/* Skeleton Animation */
+@keyframes skeleton-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

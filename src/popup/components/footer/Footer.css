@@ -1,0 +1,51 @@
+/* Footer Component Styles */
+.footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.github-link:hover {
+  color: var(--accent-primary);
+}
+
+.github-link svg {
+  width: 12px;
+  height: 12px;
+}
+
+.extension-name {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.version {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.separator {
+  font-size: 10px;
+  color: var(--border-primary);
+}

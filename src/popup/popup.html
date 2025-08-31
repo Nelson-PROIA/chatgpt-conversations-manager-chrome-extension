@@ -5,272 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatGPT Conversations Manager</title>
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="components/header/Header.css">
+  <link rel="stylesheet" href="components/footer/Footer.css">
+  <link rel="stylesheet" href="components/common/Common.css">
+  <link rel="stylesheet" href="components/common/Skeleton.css">
+  <link rel="stylesheet" href="components/settings/Settings.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="brand-group">
-      <div class="logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-          <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
-        </svg>
-      </div>
-      <h1>ChatGPT Conversations Manager</h1>
-    </div>
-    <div class="header-actions">
-      <button class="icon-btn" id="back-btn" title="Go Back" style="display: none;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-      </button>
-      <button class="icon-btn" id="settings-gear" title="Settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- General Tab (shown when not on ChatGPT or not logged in) -->
-  <div id="general-tab" class="main-content">
-    <div class="description">
-      Ease your ChatGPT conversation management with simplified selection.
-    </div>
+  <div class="popup-container">
+    <!-- Header Component -->
+    <div id="header-component"></div>
     
-    <div class="how-to-section">
-      <h3>
-        <span>🚀</span>
-        How to Use
-      </h3>
-      <ul class="how-to-list">
-        <li class="how-to-item">
-          <span class="step-number">1</span>
-          <span>Go to <a href="https://chatgpt.com" target="_blank">ChatGPT</a> and login</span>
-        </li>
-        <li class="how-to-item">
-          <span class="step-number">2</span>
-          <span>Click "Manage Conversations" in sidebar or popup</span>
-        </li>
-        <li class="how-to-item">
-          <span class="step-number">3</span>
-          <span>Select your conversations and take action</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="action-buttons">
-      <button class="action-btn" id="open-chatgpt-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15,3 21,3 21,9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-        Open ChatGPT
-      </button>
-    </div>
-  </div>
-  
-  <!-- Loading Skeleton -->
-  <div id="loading-skeleton" class="main-content" style="display: none;">
-    <div class="description skeleton-text">
-      Ready to manage conversations with bulk actions.
-    </div>
-    
-    <div class="status-banner">
-      <div class="status-icon skeleton-icon"></div>
-      <div class="status-content">
-        <p class="status-text skeleton-text">Welcome back!</p>
-        <div class="user-info">
-          <span class="user-plan skeleton-line">Loading...</span>
-          <span class="user-email skeleton-line">Loading...</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="how-to-section">
-      <h3>
-        <span class="skeleton-icon">🚀</span>
-        <span class="skeleton-text">How to Use</span>
-      </h3>
-      <ul class="how-to-list">
-        <li class="how-to-item">
-          <span class="step-number skeleton-bullet">1</span>
-          <span class="skeleton-line">Click "Manage Conversations" in sidebar or popup</span>
-        </li>
-        <li class="how-to-item">
-          <span class="step-number skeleton-bullet">2</span>
-          <span class="skeleton-line">Select your conversations and take action</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="action-buttons">
-      <button class="action-btn skeleton-button">
-        Open Manager
-      </button>
-    </div>
-  </div>
-  
-  <!-- ChatGPT Tab (shown when on ChatGPT and logged in) -->
-  <div id="chatgpt-tab" class="main-content" style="display: none;">
-    <div class="description">
-      Ready to manage conversations with bulk actions.
-    </div>
-    
-    <div class="status-banner success">
-      <svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20 6L9 17l-5-5"/>
-      </svg>
-      <div class="status-content">
-        <p class="status-text">Welcome back!</p>
-        <div class="user-info">
-          <span class="user-plan" id="user-plan">Loading...</span>
-          <span class="user-email" id="user-email">Loading...</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="how-to-section">
-      <h3>
-        <span>🚀</span>
-        How to Use
-      </h3>
-      <ul class="how-to-list">
-        <li class="how-to-item">
-          <span class="step-number">1</span>
-          <span>Click "Manage Conversations" in sidebar or popup</span>
-        </li>
-        <li class="how-to-item">
-          <span class="step-number">2</span>
-          <span>Select your conversations and take action</span>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="action-buttons">
-      <button class="action-btn" id="open-manager-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/>
-        </svg>
-        Open Manager
-      </button>
-    </div>
-  </div>
-  
-  <!-- Settings Page -->
-  <div id="settings-page" class="main-content" style="display: none;">
-    <div class="settings-section">
-      <div class="setting-row">
-        <span class="setting-title">Theme</span>
-        <div class="options-selector">
-          <button class="icon-btn" data-theme="light" title="Light Theme">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"/>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
-          </button>
-          <button class="icon-btn" data-theme="dark" title="Dark Theme">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </button>
-          <button class="icon-btn" data-theme="system" title="System Theme">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-          </button>
-          <button class="icon-btn" data-theme="chatgpt" title="ChatGPT Theme">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <p class="setting-description">Choose your preferred color scheme</p>
-    </div>
-    
-    <div class="settings-section">
-      <div class="setting-row">
-        <span class="setting-title">Batch Size</span>
-        <div class="options-selector">
-          <button class="icon-btn" data-value="10" title="10 conversations per batch">10</button>
-          <button class="icon-btn" data-value="50" title="50 conversations per batch">50</button>
-          <button class="icon-btn" data-value="100" title="100 conversations per batch">100</button>
-          <div class="icon-btn custom-batch-wrapper">
-            <input type="number" id="batch-size" class="custom-batch-input" min="1" max="250" maxlength="3" placeholder="">
-            <span class="custom-label">Custom</span>
-          </div>
-        </div>
-      </div>
-      <p class="setting-description">Number of conversations to load at once</p>
-    </div>
-    
-    <div class="settings-section">
-      <div class="setting-row">
-        <span class="setting-title">Prevent on action</span>
-      </div>
-      <p class="setting-description warning">⚠️ Disabling these warnings is at your own risk. This removes safety checks when performing actions.</p>
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- General Tab Component -->
+      <div id="general-tab-component"></div>
       
-      <div class="action-prevention-list">
-        <div class="action-prevention-item">
-          <label class="toggle-label">
-            <input type="checkbox" id="prevent-delete" class="checkbox-input">
-            <span class="toggle-slider"></span>
-            <span class="toggle-text delete">Delete</span>
-          </label>
-          <p class="action-description">Show confirmation before deleting conversations</p>
-        </div>
-        <div class="action-prevention-item">
-          <label class="toggle-label">
-            <input type="checkbox" id="prevent-archive" class="checkbox-input">
-            <span class="toggle-slider"></span>
-            <span class="toggle-text archive">Archive</span>
-          </label>
-          <p class="action-description">Show confirmation before archiving conversations</p>
-        </div>
-      </div>
-    </div>
+      <!-- ChatGPT Tab Component -->
+      <div id="chatgpt-tab-component"></div>
+      
+      <!-- ChatGPT Skeleton Component -->
+      <div id="chatgpt-skeleton-component"></div>
+      
+      <!-- Settings Page Component -->
+      <div id="settings-page-component"></div>
+    </main>
     
-    <div class="settings-actions">
-      <button class="action-btn" id="save-settings-btn">Save</button>
-    </div>
+    <!-- Footer Component -->
+    <div id="footer-component"></div>
   </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <a href="https://github.com/your-repo" target="_blank">GitHub</a>
-      <span>•</span>
-      <span>v1.0.0</span>
-      <span>•</span>
-      <span>ChatGPT Conversations Manager</span>
-    </div>
-  </footer>
-
-  <!-- Confirmation Modal -->
-  <div id="confirm-modal" class="confirm-modal" style="display: none;">
-    <div class="confirm-modal-content">
-      <h3 id="confirm-modal-title">Confirm Action</h3>
-      <p id="confirm-modal-message">Are you sure you want to proceed?</p>
-      <div class="confirm-modal-actions">
-        <button class="action-btn" id="confirm-action-btn">Confirm</button>
-        <button class="action-btn secondary" id="confirm-cancel-btn">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="toast" style="display: none;">
-    <div class="toast-content">
-      <span class="toast-message">Settings saved successfully!</span>
-    </div>
-  </div>
-
-  <script src="popup.js"></script>
+  
+      <!-- Toast Container -->
+    <div id="toast-container"></div>
+    
+    <!-- Confirmation Modal Component -->
+    <div id="confirm-modal-component"></div>
+    
+    <!-- Toast Component -->
+    <div id="toast-component"></div>
+  
+  <script type="module" src="js/popup.js"></script>
 </body>
 </html>
-
