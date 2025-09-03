@@ -30,13 +30,20 @@ export class NavigationManager {
   static async showChatGPTTab() {
     const elements = getElements();
     
-    elements.chatgptTab.style.display = 'flex';
-
+    // First show the skeleton for a fake delay
+    elements.loadingSkeleton.style.display = 'flex';
+    elements.chatgptTab.style.display = 'none';
     elements.generalTab.style.display = 'none';
     elements.settingsPage.style.display = 'none';
-    elements.loadingSkeleton.style.display = 'none';
     elements.backBtn.style.display = 'none';
     elements.settingsGear.style.display = 'flex';
+    
+    // Add a fake delay to show the skeleton (1.5 seconds)
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // Then show the actual ChatGPT tab
+    elements.loadingSkeleton.style.display = 'none';
+    elements.chatgptTab.style.display = 'flex';
     
     // Refresh theme if it's set to ChatGPT to get the latest gptTheme value
     await ThemeManager.refreshTheme();
