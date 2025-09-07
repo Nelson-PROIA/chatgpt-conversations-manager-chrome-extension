@@ -24,6 +24,7 @@ export function hideLoadingSkeleton() {
 
 export function getElements() {
   return {
+    loadingComponent: document.getElementById('loading-component'),
     generalTab: document.getElementById('general-tab-component'),
     chatgptTab: document.getElementById('chatgpt-tab-component'),
     settingsPage: document.getElementById('settings-page-component'),

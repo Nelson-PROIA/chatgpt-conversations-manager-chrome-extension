@@ -17,6 +17,38 @@ const stateManager = new StateManager();
 NavigationManager.setState(stateManager);
 SettingsManager.setState(stateManager);
 
+function disableNavigationButtons() {
+  const elements = getElements();
+  
+  // Hide settings button but keep it in layout
+  if (elements.settingsGear) {
+    elements.settingsGear.style.visibility = 'hidden';
+    elements.settingsGear.style.pointerEvents = 'none';
+  }
+  
+  // Hide back button but keep it in layout
+  if (elements.backBtn) {
+    elements.backBtn.style.visibility = 'hidden';
+    elements.backBtn.style.pointerEvents = 'none';
+  }
+}
+
+function enableNavigationButtons() {
+  const elements = getElements();
+  
+  // Show settings button
+  if (elements.settingsGear) {
+    elements.settingsGear.style.visibility = 'visible';
+    elements.settingsGear.style.pointerEvents = 'auto';
+  }
+  
+  // Show back button
+  if (elements.backBtn) {
+    elements.backBtn.style.visibility = 'visible';
+    elements.backBtn.style.pointerEvents = 'auto';
+  }
+}
+
 async function initialize() {
   try {
     // Initialize storage first
@@ -25,15 +57,29 @@ async function initialize() {
     // Wait for StateManager to load initial state
     await stateManager.loadInitialState();
     
-    await ComponentLoader.loadAllComponents();
-    ComponentLoader.hideAllComponents();
+    // Apply theme FIRST to minimize flash
     await ThemeManager.loadTheme();
+    
+    await ComponentLoader.loadAllComponents();
+    // Keep loading component visible as default state
+    ComponentLoader.hideAllComponentsExceptLoading();
+    
+    // Now that components are loaded, disable navigation buttons
+    disableNavigationButtons();
+    
     
     await checkChatGPTStatusAndShowTab();
     setupEventListeners();
+    
+    // Mark initialization as complete and re-enable navigation buttons
+    NavigationManager.setInitializationComplete();
+    enableNavigationButtons();
   } catch (error) {
     console.error('Initialization error:', error);
     NavigationManager.showGeneralTab();
+    // Mark initialization as complete and re-enable navigation buttons even on error
+    NavigationManager.setInitializationComplete();
+    enableNavigationButtons();
   }
 }
 
@@ -46,6 +92,9 @@ async function checkChatGPTStatusAndShowTab() {
   // If we have pending changes, show settings page and reapply them
   if (Object.keys(pendingChanges).length > 0) {
     console.log('Found pending changes, showing settings page');
+    // Mark initialization as complete first to allow navigation
+    NavigationManager.setInitializationComplete();
+    enableNavigationButtons();
     await NavigationManager.showSettingsPage();
     return;
   }
@@ -95,20 +144,18 @@ function setupEventListeners() {
   });
   
   if (elements.settingsGear) {
-    console.log('seeet');
+    console.log('Settings button found, adding event listener');
     elements.settingsGear.addEventListener('click', async () => {
+      console.log('Settings button clicked');
       await NavigationManager.showSettingsPage();
     });
+  } else {
+    console.log('Settings button not found!');
   }
 
   if (elements.backBtn) {
     elements.backBtn.addEventListener('click', async () => {
-      const result = await NavigationManager.goBack();
-
-      if (result === 'confirm') {
-        await SettingsManager.revertToOriginalSettings();
-        await checkChatGPTStatusAndShowTab();
-      }
+      await NavigationManager.goBack();
     });
   }
 

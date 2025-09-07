@@ -1,4 +1,4 @@
-/* Main Popup Styles */
+/* Modal Styles */
 :root,
 .theme-light {
   /* Light Theme */
@@ -21,7 +21,9 @@
   --skeleton-shine: #f8f9fa;
   --danger-text: #dc3545;
   --danger-soft: #f8d7da;
-  --archive-text: #6f42c1;
+  --danger-hover: #c82333;
+  --archive-text: #20c997;
+  --archive-hover: #1aa179;
   --text-accent: #007bff;
   --border-secondary: #ced4da;
   --border-accent: #007bff;
@@ -30,6 +32,14 @@
   --toggle-slider: #ffffff;
   --warning-bg: #fff3cd;
   --warning-border: #ffeaa7;
+  
+  /* Semantic colors */
+  --color-success: #22c55e;
+  --color-info: #3b82f6;
+  --color-neutral: #6b7280;
+  --color-success-bg: rgba(34, 197, 94, 0.1);
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+  --color-neutral-bg: rgba(107, 114, 128, 0.1);
 }
 
 .theme-dark {
@@ -53,7 +63,9 @@
   --skeleton-shine: #505050;
   --danger-text: #ff6b6b;
   --danger-soft: #4a2a2a;
-  --archive-text: #a78bfa;
+  --danger-hover: #ff5252;
+  --archive-text: #4ecdc4;
+  --archive-hover: #3bb5ac;
   --text-accent: #4dabf7;
   --border-secondary: #555555;
   --border-accent: #4dabf7;
@@ -62,6 +74,14 @@
   --toggle-slider: #f9fafb;
   --warning-bg: #78350f;
   --warning-border: #92400e;
+  
+  /* Semantic colors - Dark theme */
+  --color-success: #4ade80;
+  --color-info: #60a5fa;
+  --color-neutral: #9ca3af;
+  --color-success-bg: rgba(74, 222, 128, 0.15);
+  --color-info-bg: rgba(96, 165, 250, 0.15);
+  --color-neutral-bg: rgba(156, 163, 175, 0.15);
 }
 
 /* Base Styles */
@@ -73,8 +93,9 @@
 
 html,
 body {
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -82,34 +103,72 @@ body {
   font-size: 12px;
   line-height: 1.5;
   color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Popup Container */
-.popup-container {
+/* Modal Wrapper - Centers the modal */
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+/* Modal Container */
+.modal-container {
   display: flex;
   flex-direction: column;
+  width: 60vw;
+  height: 80vh;
+  min-width: 600px;
   background: var(--bg-primary);
-  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Header - Fixed height */
+#header-component {
+  flex-shrink: 0;
+}
+
+/* Actions Bar - Fixed height */
+#actions-component {
+  flex-shrink: 0;
+}
+
+/* Conversations List - Takes remaining space */
+#conversations-component {
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+/* Footer - Fixed height */
+#footer-component {
+  flex-shrink: 0;
+}
+
+/* Load More Container */
+.load-more-container {
   padding: 12px;
-}
-
-/* Hide all content components initially to prevent flash */
-.main-content > div {
-  display: none;
-}
-
-/* Show loading component by default while initializing */
-#loading-component {
+  border-top: 1px solid var(--border-primary);
+  background: var(--bg-primary);
   display: flex;
+  justify-content: center;
+}
+
+.load-more-container .action-btn {
+  min-width: 120px;
 }
 
 /* Toast Container */
@@ -120,4 +179,3 @@ body {
   z-index: 10000;
   pointer-events: none;
 }
-

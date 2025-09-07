@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Conversations</title>
+  <link rel="stylesheet" href="modal.css">
+  <link rel="stylesheet" href="components/header/Header.css">
+  <link rel="stylesheet" href="components/footer/Footer.css">
+  <link rel="stylesheet" href="components/common/Common.css">
+  <link rel="stylesheet" href="components/actions/ActionsBar.css">
+  <link rel="stylesheet" href="components/conversations/ConversationsList.css">
+</head>
+<body>
+  <div class="modal-wrapper">
+    <div class="modal-container">
+    <!-- Header Component -->
+    <div id="header-component">
+      <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+        Loading header...
+      </div>
+    </div>
+    
+    <!-- Actions Bar Component -->
+    <div id="actions-component">
+      <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+        Loading actions...
+      </div>
+    </div>
+    
+    
+    <!-- Conversations List Component -->
+    <div id="conversations-component">
+      <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+        Loading conversations...
+      </div>
+    </div>
+    
+    <!-- Footer Component -->
+    <div id="footer-component">
+      <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+        Loading footer...
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+  
+  <!-- Confirmation Modal Component -->
+  <div id="confirm-modal-component">
+    <div style="display: none;">
+      <!-- Fallback modal content -->
+      <div id="confirm-modal" class="confirm-modal" style="display: none;">
+        <div class="confirm-modal-content">
+          <h3 id="confirm-modal-title">Confirm Action</h3>
+          <p id="confirm-modal-message">Are you sure you want to proceed?</p>
+          <div class="confirm-modal-actions">
+            <button class="action-btn" id="confirm-action-btn">Confirm</button>
+            <button class="action-btn secondary" id="confirm-cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Component -->
+  <div id="toast-component">
+    <div style="display: none;">
+      <!-- Fallback toast content -->
+      <div id="toast" class="toast" style="display: none;">
+        <div class="toast-content">
+          <span class="toast-message">Settings saved successfully!</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  
+  <script type="module" src="js/modal.js"></script>
+</body>
+</html>

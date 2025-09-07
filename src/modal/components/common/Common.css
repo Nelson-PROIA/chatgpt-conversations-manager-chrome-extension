@@ -112,7 +112,6 @@
 .action-buttons {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -176,6 +175,11 @@
   height: 16px;
 }
 
+.action-btn svg.small-icon {
+  width: 12px;
+  height: 12px;
+}
+
 /* Icon Button */
 .icon-btn {
   display: flex;
@@ -221,7 +225,6 @@
   border: 1px solid var(--border-primary);
   border-radius: 8px;
 }
-
 
 /* Toast Notification */
 .toast {
@@ -317,4 +320,88 @@
 
 .user-email {
   color: var(--text-secondary);
+}
+
+/* Confirmation Modal */
+.confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.confirm-modal-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-modal-content h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.confirm-modal-content p {
+  margin: 0 0 20px 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.confirm-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.confirm-modal-actions .action-btn {
+  width: auto;
+  min-width: 80px;
+}
+
+.confirm-modal-actions .action-btn.secondary {
+  background: var(--bg-primary);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.confirm-modal-actions .action-btn.secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent-primary);
+}
+
+/* Danger button for delete confirmations */
+.confirm-modal-actions .action-btn.danger-primary {
+  background: var(--danger-text);
+  border-color: var(--danger-text);
+  color: white;
+}
+
+.confirm-modal-actions .action-btn.danger-primary:hover {
+  background: var(--danger-hover);
+  border-color: var(--danger-hover);
+}
+
+/* Archive button for archive confirmations */
+.confirm-modal-actions .action-btn.archive-primary {
+  background: var(--archive-text);
+  border-color: var(--archive-text);
+  color: white;
+}
+
+.confirm-modal-actions .action-btn.archive-primary:hover {
+  background: var(--archive-hover);
+  border-color: var(--archive-hover);
 }

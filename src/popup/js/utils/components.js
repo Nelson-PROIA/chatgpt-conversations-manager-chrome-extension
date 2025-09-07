@@ -32,6 +32,7 @@ export class ComponentLoader {
     const components = [
       { path: COMPONENT_PATHS.HEADER, target: COMPONENT_TARGETS.HEADER },
       { path: COMPONENT_PATHS.FOOTER, target: COMPONENT_TARGETS.FOOTER },
+      { path: COMPONENT_PATHS.LOADING, target: COMPONENT_TARGETS.LOADING },
       { path: COMPONENT_PATHS.GENERAL_TAB, target: COMPONENT_TARGETS.GENERAL_TAB },
       { path: COMPONENT_PATHS.CHATGPT_TAB, target: COMPONENT_TARGETS.CHATGPT_TAB },
       { path: COMPONENT_PATHS.CHATGPT_SKELETON, target: COMPONENT_TARGETS.CHATGPT_SKELETON },
@@ -86,5 +87,28 @@ export class ComponentLoader {
         element.style.display = 'none';
       }
     });
+  }
+
+  static hideAllComponentsExceptLoading() {
+    const components = [
+      'general-tab-component',
+      'chatgpt-tab-component',
+      'chatgpt-skeleton-component',
+      'settings-page-component'
+    ];
+
+    components.forEach(id => {
+      const element = document.getElementById(id);
+      
+      if (element) {
+        element.style.display = 'none';
+      }
+    });
+    
+    // Keep loading component visible as default state
+    const loadingElement = document.getElementById('loading-component');
+    if (loadingElement) {
+      loadingElement.style.display = 'flex';
+    }
   }
 }

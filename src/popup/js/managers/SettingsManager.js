@@ -323,13 +323,13 @@ export class SettingsManager {
       button.addEventListener('click', async (e) => {
         const batchSize = parseInt(e.target.dataset.batch);
         
-        // Clear custom batch size setting and input
+        // Remove active state from custom batch wrapper but keep the value
         if (elements.batchInput) {
-          elements.batchInput.value = '';
           const customWrapper = elements.batchInput.closest('.custom-batch-wrapper');
           if (customWrapper) {
             customWrapper.classList.remove('active');
           }
+          // Don't clear the input value - keep it for when user switches back
         }
         
         // Update pending changes for both batchSize and isCustomBatchSize

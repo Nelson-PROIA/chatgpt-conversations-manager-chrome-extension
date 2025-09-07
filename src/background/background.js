@@ -17,7 +17,7 @@ const STORAGE_KEYS = {
   GPT_THEME: 'gptTheme'
 };
 
-// Default settings (matching popup constants)
+// Default settings (shared with modal and popup)
 const DEFAULT_SETTINGS = {
   theme: 'light',
   batchSize: 50,

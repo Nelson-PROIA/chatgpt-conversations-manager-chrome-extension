@@ -10,9 +10,14 @@ import { SettingsManager } from './SettingsManager.js';
 
 export class NavigationManager {
   static state = null;
+  static isInitializing = true;
 
   static setState(stateInstance) {
     this.state = stateInstance;
+  }
+
+  static setInitializationComplete() {
+    this.isInitializing = false;
   }
 
   static async showGeneralTab() {
@@ -23,6 +28,7 @@ export class NavigationManager {
     elements.chatgptTab.style.display = 'none';
     elements.settingsPage.style.display = 'none';
     elements.loadingSkeleton.style.display = 'none';
+    elements.loadingComponent.style.display = 'none';
     elements.backBtn.style.display = 'none';
     elements.settingsGear.style.display = 'flex';
   }
@@ -30,7 +36,8 @@ export class NavigationManager {
   static async showChatGPTTab() {
     const elements = getElements();
     
-    // First show the skeleton for a fake delay
+    // Hide loading component and show skeleton for ChatGPT content loading
+    elements.loadingComponent.style.display = 'none';
     elements.loadingSkeleton.style.display = 'flex';
     elements.chatgptTab.style.display = 'none';
     elements.generalTab.style.display = 'none';
@@ -38,8 +45,6 @@ export class NavigationManager {
     elements.backBtn.style.display = 'none';
     elements.settingsGear.style.display = 'flex';
     
-    // Add a fake delay to show the skeleton (1.5 seconds)
-    await new Promise(resolve => setTimeout(resolve, 1500));
     
     // Then show the actual ChatGPT tab
     elements.loadingSkeleton.style.display = 'none';
@@ -50,16 +55,23 @@ export class NavigationManager {
   }
 
   static async showSettingsPage() {
+    console.log('showSettingsPage called, isInitializing:', this.isInitializing);
+    // Prevent navigation during initialization
+    if (this.isInitializing) {
+      console.log('Navigation blocked during initialization');
+      return;
+    }
+    
     const elements = getElements();
     
     elements.settingsPage.style.display = 'flex';
 
     elements.generalTab.style.display = 'none';
     elements.chatgptTab.style.display = 'none';
+    elements.loadingComponent.style.display = 'none';
+    elements.loadingSkeleton.style.display = 'none';
     elements.backBtn.style.display = 'flex';
     elements.settingsGear.style.display = 'none';
-    
-    hideLoadingSkeleton();
     
     this.state.cancelChatGPTCheck = true;
     
@@ -69,21 +81,28 @@ export class NavigationManager {
     
     // Make sure save button state reflects current pending changes
     SettingsManager.updateSaveButtonState();
+    
+    // Update theme button states to ensure GPT button is properly disabled if needed
+    await ThemeManager.updateAllThemeButtonStates();
   }
 
   static async goBack() {
     if (this.state.hasPendingChanges()) {
       const result = await this.showConfirmationModal(
-        'Unsaved Changes',
-        'You have unsaved changes. Are you sure you want to leave?',
-        'Yes, Leave',
+        'Discard Changes',
+        'You have unsaved changes. Are you sure you want to discard them?',
+        'Discard',
         'Keep Editing'
       );
       
       if (result === 'confirm') {
-        // User confirmed leaving, discard changes and go back
-        this.state.clearPendingChanges();
+        // User confirmed leaving, navigate away first to avoid seeing settings reset
         await this.goBackWithoutConfirmation();
+        // Then discard changes and revert settings
+        await SettingsManager.revertToOriginalSettings();
+        this.state.clearPendingChanges();
+        // Reset the settings form to original state
+        await SettingsManager.loadSettingsForm();
       }
       // If result is 'cancel', stay on settings page
     } else {

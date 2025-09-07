@@ -22,8 +22,18 @@ export class ThemeManager {
       // Apply the theme
       await this.applyTheme(theme);
       
-      // Update theme buttons
-      this.updateThemeButtons(theme);
+      // Update theme buttons - special handling for ChatGPT theme
+      if (theme === THEMES.CHATGPT) {
+        const gptTheme = await StorageManager.getGptTheme();
+        if (gptTheme === THEMES.DARK || gptTheme === THEMES.LIGHT) {
+          this.updateThemeButtons(theme);
+        } else {
+          // If gptTheme is null, don't show ChatGPT as selected
+          this.updateThemeButtons(THEMES.LIGHT); // Default to light
+        }
+      } else {
+        this.updateThemeButtons(theme);
+      }
     } catch (error) {
       console.error('Error applying theme:', error);
     }
@@ -91,6 +101,22 @@ export class ThemeManager {
     }
   }
 
+  static async updateAllThemeButtonStates() {
+    const elements = getElements();
+    const themeButtons = elements.themeButtons;
+    
+    for (const btn of themeButtons) {
+      const theme = btn.dataset.theme;
+      if (theme === THEMES.CHATGPT) {
+        await this.updateChatGptButtonState(btn);
+      } else {
+        // Ensure other buttons are enabled
+        btn.disabled = false;
+        btn.classList.remove('disabled');
+      }
+    }
+  }
+
   static async updateGptTheme(theme) {
     try {
       await StorageManager.saveGptTheme(theme);
@@ -120,9 +146,14 @@ export class ThemeManager {
       } else {
         await this.selectTheme(THEMES.LIGHT);
       }
+      
+      // Update button states after theme loading
+      await this.updateAllThemeButtonStates();
     } catch (error) {
       console.error('Error loading theme:', error);
       await this.selectTheme(THEMES.LIGHT);
+      // Update button states even on error
+      await this.updateAllThemeButtonStates();
     }
   }
 

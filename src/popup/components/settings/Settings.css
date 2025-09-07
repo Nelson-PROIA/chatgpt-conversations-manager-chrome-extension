@@ -132,7 +132,6 @@
   background: var(--bg-primary);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .custom-batch-wrapper:hover {
@@ -353,29 +352,30 @@
 }
 
 .confirm-modal-actions .action-btn {
-  min-width: 60px;
-  padding: 6px 10px;
+  min-width: 80px;
+  padding: 8px 12px;
   font-size: 11px;
-  background: var(--bg-primary);
-  color: var(--text-accent);
-  border: 1px solid var(--text-accent);
+  background: var(--danger-text);
+  color: white;
+  border: 1px solid var(--danger-text);
   border-radius: 4px;
   cursor: pointer;
   font-family: inherit;
+  font-weight: 500;
 }
 
 .confirm-modal-actions .action-btn:hover {
-  background: var(--bg-hover);
-  color: var(--text-accent);
+  background: #c82333;
+  border-color: #c82333;
 }
 
 .confirm-modal-actions .action-btn.secondary {
   background: var(--bg-primary);
-  color: var(--danger-text);
-  border-color: var(--danger-text);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
 }
 
 .confirm-modal-actions .action-btn.secondary:hover {
-  background: var(--danger-soft);
-  color: var(--danger-text);
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }

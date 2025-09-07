@@ -1,0 +1,138 @@
+<!-- Actions Bar Component -->
+<div class="actions-bar">
+  <!-- Actions Row: Toggle Selection (left) + Actions (right) -->
+  <div class="actions-row">
+    <div class="actions-left">
+      <button class="select-toggle-btn" id="select-toggle-btn" disabled>
+        <span id="select-toggle-text">Select All</span>
+        <span id="select-search-indicator" class="select-search-indicator" style="display: none;">(for current search results)</span>
+        <span id="select-count" class="select-count">(0)</span>
+      </button>
+    </div>
+    
+    <div class="actions-right">
+      <div class="action-buttons">
+        <button class="action-btn danger-btn" id="delete-btn" disabled>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="3,6 5,6 21,6" stroke="currentColor" stroke-width="2"/>
+            <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Delete
+        </button>
+        <button class="action-btn archive-btn" id="archive-btn" disabled>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="21,8 21,21 3,21 3,8" stroke="currentColor" stroke-width="2"/>
+            <rect x="1" y="3" width="22" height="5" stroke="currentColor" stroke-width="2"/>
+            <line x1="10" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Archive
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Search Row: Search Bar + Selectors -->
+  <div class="search-row">
+    <div class="search-container">
+      <div class="search-input-container">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+          <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search conversations..."
+          autocomplete="off"
+        />
+        <button class="clear-search-btn" id="clear-search-btn" style="display: none;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/>
+            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="selectors-container">
+      <!-- Sort Selector -->
+      <div class="selector-group">
+        <button class="sort-direction-icon-btn" id="sort-direction-icon-btn" title="Toggle sort direction (ascending/descending)">
+          <svg class="sort-direction-icon ascending" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5">
+            <path d="m3 8 4-4 4 4"/>
+            <path d="M7 4v16"/>
+            <path d="M20 8h-5"/>
+            <path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10"/>
+            <path d="M15 14h5l-5 6h5"/>
+          </svg>
+          <svg class="sort-direction-icon descending" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5">
+            <path d="m3 16 4 4 4-4"/>
+            <path d="M7 4v16"/>
+            <path d="M15 4h5l-5 6h5"/>
+            <path d="M15 20v-3.5a2.5 2.5 0 0 1 5 0V20"/>
+            <path d="M20 18h-5"/>
+          </svg>
+        </button>
+        <div class="sort-selector" id="sort-selector">
+          <div class="selector-trigger" title="Sort conversations by date or name">
+            <span class="selector-text">Created Date</span>
+            <svg class="selector-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="selector-dropdown">
+            <div class="selector-option selected" data-sort="created">
+              Created Date
+            </div>
+            <div class="selector-option" data-sort="modified">
+              Modified Date
+            </div>
+            <div class="selector-option" data-sort="name">
+              Name
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Filter Selector -->
+      <div class="selector-group">
+        <button class="filter-mode-icon-btn" id="filter-mode-icon-btn" title="Toggle filter mode (inclusive/exclusive)">
+          <svg class="filter-mode-icon inclusive" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5">
+            <path d="M13.354 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14v6a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341l1.218-1.348"/>
+            <path d="M16 6h6"/>
+            <path d="M19 3v6"/>
+          </svg>
+          <svg class="filter-mode-icon exclusive" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.5">
+            <path d="M12.531 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14v6a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341l.427-.473"/>
+            <path d="m16.5 3.5 5 5"/>
+            <path d="m21.5 3.5-5 5"/>
+          </svg>
+        </button>
+        <div class="filter-selector" id="filter-selector">
+          <div class="selector-trigger" title="Filter conversations by type">
+            <span class="selector-text">All</span>
+            <svg class="selector-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="selector-dropdown">
+            <div class="selector-option multi-select" data-filter="new">
+              New
+            </div>
+            <div class="selector-option multi-select" data-filter="updated">
+              Updated
+            </div>
+            <div class="selector-option multi-select" data-filter="other">
+              Other
+            </div>
+            <div class="selector-divider"></div>
+            <div class="selector-option reset-filters" data-action="reset-filters">
+              Reset
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
